@@ -35,4 +35,8 @@ def run_cli():
         print "Connection to API failed."
 
 if __name__ == '__main__':
-    run_cli()
+    try:
+        run_cli()
+    except KeyboardInterrupt:
+        print
+        pass
