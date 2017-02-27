@@ -78,6 +78,12 @@ class DoveAdmCli(cmd.Cmd):
             completions = [f + "=" for f in self.doveadm.commands[shlex.split(line)[0]] if f.startswith(text)]
         return completions
 
+    def preloop(self):
+        print "=== Doveadm HTTP CLI ==="
+        print " - Array type parameters should be comma separated"
+        print " - EOF can be specified as a special value for multiline input."
+        print
+
     def postloop(self):
         """ Exit a bit more nicely. """
         print
