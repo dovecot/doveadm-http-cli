@@ -27,7 +27,11 @@ class DoveAdmHTTPClient(object):
 
     def get_commands(self):
         """ Retrieve list of available commands and their parameters from API """
-        req = self.reqs.get(self.apiurl)
+        try:
+            req = self.reqs.get(self.apiurl)
+        except requests.exceptions.ConnectionError:
+            return [["error", {"type": "connectionError"}, "c01"]]
+            
         if req.status_code == 200:
             commands = req.json()
             for command in commands:
@@ -45,5 +49,5 @@ class DoveAdmHTTPClient(object):
             if req.status_code == 200:
                 return req.json()
             return [["error", {"type": "httpError", "httpError": req.status_code}, "c01"]]
-        except:
-            return [["error", {"type": "emptyResponse", "httpError": req.status_code}, "c01"]]
+        except requests.exceptions.ConnectionError:
+            return [["error", {"type": "fatalError"}, "c01"]]

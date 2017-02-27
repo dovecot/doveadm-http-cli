@@ -29,6 +29,8 @@ class DoveAdmCli(cmd.Cmd):
             if response[0][0] == "error":
                 if response[0][1]['type'] == 'httpError':
                     return response[0][1]['httpError']
+                elif response[0][1]['type'] == 'connectionError':
+                    return 1
         except KeyError:
             pass
         return 0
@@ -107,6 +109,8 @@ class DoveAdmCli(cmd.Cmd):
                         print "Unknown error occurred"
                 elif response[0][1]['type'] == 'httpError':
                     print "HTTP Error code: " + response[0][1]['httpError']
+                elif response[0][1]['type'] == 'fatalError':
+                    print "API call failed, invalid parameters?"
             else:
                 print json.dumps(response[0][1], indent=4, sort_keys=True)
 

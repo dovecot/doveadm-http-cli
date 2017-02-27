@@ -26,8 +26,13 @@ def run_cli():
         parser.error('Doveadm API URL not given')
 
     doveadmcli = DoveAdmCli()
-    doveadmcli.add_doveadm_http_api(apiurl=options.apiurl, apikey=options.apikey, user=user, password=options.password)
-    doveadmcli.cmdloop()
+    resp = doveadmcli.add_doveadm_http_api(apiurl=options.apiurl, apikey=options.apikey, user=user, password=options.password)
+    if resp == 0:
+        doveadmcli.cmdloop()
+    elif resp >= 100:
+        print "Connection to API failed with HTTP status: %s" % str(resp)
+    else:
+        print "Connection to API failed."
 
 if __name__ == '__main__':
     run_cli()
