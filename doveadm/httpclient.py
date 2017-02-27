@@ -42,8 +42,8 @@ class DoveAdmHTTPClient(object):
         else:
             return [["error", {"type": "httpError", "httpError": req.status_code}, "c01"]]
 
-    def post(self, command, parameters):
-        """ POST request to HTTP API """
+    def run_command(self, command, parameters):
+        """ Run command with parameters """
         try:
             req = self.reqs.post(self.apiurl, json=[[command, parameters, "c01"]])
             if req.status_code == 200:

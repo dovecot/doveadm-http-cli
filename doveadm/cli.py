@@ -135,7 +135,7 @@ class DoveAdmCli(cmd.Cmd):
                     print "Syntax error"
 
             if len(params) > 0 or len(line) == 1:
-                response = self.doveadm.post(command=line[0], parameters=params)
+                response = self.doveadm.run_command(command=line[0], parameters=params)
                 self.read_response(command=line[0], response=response)
 
         else:
