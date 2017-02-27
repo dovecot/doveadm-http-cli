@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+""" Doveadm HTTP CLI """
 
 import optparse
 from doveadm.cli import DoveAdmCli

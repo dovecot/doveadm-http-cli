@@ -45,6 +45,19 @@ class DoveAdmHTTPClient(object):
         else:
             return [["error", {"type": "httpError", "httpError": req.status_code}, "c01"]]
 
+    def generate_curl(self, command, parameters):
+        """ Return curl syntax for request. """
+        import json
+        curl_string = 'curl -H "Authorization: '
+        if self.password:
+            curl_string += 'Basic %s"' % b64encode('doveadm:' + self.password)
+        elif self.apikey:
+            curl_string += 'X-Dovecot-API %s"' % b64encode(self.apikey)
+        curl_string += ' -H "Content-Type: application/json"'
+        curl_string += " -d '%s'" % json.dumps([[command, parameters, "c01"]])
+        curl_string += " %s" % self.apiurl
+        return curl_string
+
     def run_command(self, command, parameters):
         """ Run command with parameters """
         try:

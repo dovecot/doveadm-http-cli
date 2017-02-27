@@ -18,6 +18,7 @@ else:
 class DoveAdmCli(cmd.Cmd):
     """ Doveadm Cli """
     prompt = "(doveadm) "
+    debug = False
 
     def add_doveadm_http_api(self, apiurl, apikey=None, user=None, password=None):
         """ Set Doveadm HTTP API credentials and retrieve available commands. """
@@ -47,6 +48,14 @@ class DoveAdmCli(cmd.Cmd):
                 print
         else:
             self.print_command_params(line[0])
+
+    def do_debug(self, line):
+        """ Enable or disable debug output """
+        if self.debug:
+            self.debug = False
+        else:
+            self.debug = True
+        print "Debug set to %s" % self.debug
 
     def print_command_params(self, command):
         """ Print parameters for a command. """
@@ -85,6 +94,9 @@ class DoveAdmCli(cmd.Cmd):
         print "=== Doveadm HTTP CLI ==="
         print " - Array type parameters should be comma separated"
         print " - EOF can be specified as a special value for multiline input."
+        print " - Command 'debug' can be used to enable debug printing curl command for each command."
+        print " - 'commands' can be used to display all available commands."
+        print " - Use tab to complete commands/parameters."
         print
 
     def postloop(self):
@@ -136,6 +148,10 @@ class DoveAdmCli(cmd.Cmd):
                     print "Syntax error"
 
             if len(params) > 0 or len(line) == 1:
+                if self.debug:
+                    print
+                    print self.doveadm.generate_curl(command=line[0], parameters=params)
+                    print
                 response = self.doveadm.run_command(command=line[0], parameters=params)
                 self.read_response(command=line[0], response=response)
 
