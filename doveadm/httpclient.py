@@ -47,5 +47,3 @@ class DoveAdmHTTPClient(object):
             return [["error", {"type": "httpError", "httpError": req.status_code}, "c01"]]
         except:
             return [["error", {"type": "emptyResponse", "httpError": req.status_code}, "c01"]]
-
-
