@@ -7,7 +7,7 @@ import shlex
 # Hack for macOS readline
 import readline
 import rlcompleter
-from httpclient import DoveAdmHTTPClient
+from doveadm.httpclient import DoveAdmHTTPClient
 
 if 'libedit' in readline.__doc__:
     readline.parse_and_bind("bind ^I rl_complete")
