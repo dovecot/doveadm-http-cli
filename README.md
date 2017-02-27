@@ -9,4 +9,4 @@ or
 ./doveadm_cli.py --password doveadm_password --apiurl http://host:port/doveadm/v1
 ```
 
-Use <tab> to expand commands/parameters.
+Use tab to expand commands/parameters.
