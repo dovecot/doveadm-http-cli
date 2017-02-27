@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+""" HTTP Client library for Dovecot Doveadm HTTP API.
+More details of the API itself can be found from:
+http://wiki2.dovecot.org/Design/DoveadmProtocol/HTTP """
 
 from base64 import b64encode
 import requests
@@ -31,7 +34,7 @@ class DoveAdmHTTPClient(object):
             req = self.reqs.get(self.apiurl)
         except requests.exceptions.ConnectionError:
             return [["error", {"type": "connectionError"}, "c01"]]
-            
+
         if req.status_code == 200:
             commands = req.json()
             for command in commands:

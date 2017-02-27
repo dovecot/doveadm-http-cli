@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+""" CLI client library for DoveAdmHTTPClient """
 
 import cmd
 import json
@@ -144,4 +145,3 @@ class DoveAdmCli(cmd.Cmd):
     def do_EOF(self, line):
         """ Handle ^D / EOF to exit. """
         return True
-
