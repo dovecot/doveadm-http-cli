@@ -125,7 +125,9 @@ class DoveAdmCli(cmd.Cmd):
                 elif response[0][1]['type'] == 'fatalError':
                     print "API call failed, invalid parameters?"
             else:
+                #response[0][1].append({"numResults": len(response[0][1])})
                 print json.dumps(response[0][1], indent=4, sort_keys=True)
+                print "Results: %s" % len(response[0][1])
 
     def default(self, line):
         """ Override Cmd.default to handle Doveadm HTTP API commands. """
