@@ -10,3 +10,6 @@ or
 ```
 
 Use tab to expand commands/parameters.
+
+### Advanced
+Use command debug to enable printing curl commands for API calls
