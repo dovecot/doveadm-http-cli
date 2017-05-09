@@ -2,7 +2,7 @@
 doveadm-http-cli is an experimental PoC client for Dovecot doveadm HTTP API written in python. On startup it will connect to the API and fetch all available commands and their accepted parameters. Tab completion is available.
 
 #### Usage
-First configure enable [doveadm HTTP api](https://wiki.dovecot.org/Design/DoveadmProtocol/HTTP)
+First enable [doveadm HTTP api](https://wiki.dovecot.org/Design/DoveadmProtocol/HTTP)
 
 Then run the client:
 ```
