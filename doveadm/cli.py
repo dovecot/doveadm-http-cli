@@ -119,7 +119,7 @@ class DoveAdmCli(cmd.Cmd):
                         if exit_code == 64:
                             self.print_command_params(command)
                     else:
-                        print "Unknown error occurred"
+                        print "Unknown error " + str(exit_code) + " occurred"
                 elif response[0][1]['type'] == 'httpError':
                     print "HTTP Error code: " + response[0][1]['httpError']
                 elif response[0][1]['type'] == 'fatalError':
