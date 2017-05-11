@@ -18,6 +18,7 @@ class DoveAdmHTTPClient(object):
             64: 'Incorrect parameters',
             65: 'Data error',
             67: 'User does not exist in userdb',
+            68: 'Not found',
             73: 'Cannot create file, user out of quota',
             77: 'Authentication failure / permission denied',
             78: 'Invalid configuration'
