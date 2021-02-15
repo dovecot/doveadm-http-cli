@@ -31,9 +31,9 @@ def run_cli():
     if resp == 0:
         doveadmcli.cmdloop()
     elif resp >= 100:
-        print "Connection to API failed with HTTP status: %s" % str(resp)
+        print("Connection to API failed with HTTP status: %s" % str(resp))
     else:
-        print "Connection to API failed."
+        print("Connection to API failed.")
 
 if __name__ == '__main__':
     try:
