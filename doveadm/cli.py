@@ -39,12 +39,12 @@ class DoveAdmCli(cmd.Cmd):
 
     def do_commands(self, line):
         """ Show available commands or give specific command for parameters """
-        line = filter(None, line.split(" "))
+        line = list(filter(None, line.split(" ")))
         if len(line) == 0:
             for command in self.doveadm.commands:
-                print command + ":"
+                print(command + ":")
                 for param, paramtype in self.doveadm.commands[command].items():
-                    print " - name: %s (%s) " % (param, paramtype)
+                    print(" - name: %s (%s) " % (param, paramtype))
                 print
         else:
             self.print_command_params(line[0])
@@ -55,21 +55,21 @@ class DoveAdmCli(cmd.Cmd):
             self.debug = False
         else:
             self.debug = True
-        print "Debug set to %s" % self.debug
+        print("Debug set to %s" % self.debug)
 
     def print_command_params(self, command):
         """ Print parameters for a command. """
         if command in self.doveadm.commands:
-            print "valid parameters for %s: " % command
+            print("valid parameters for %s: " % command)
             for param, paramtype in self.doveadm.commands[command].items():
-                print " - %s (%s)" % (param, paramtype)
+                print(" - %s (%s)" % (param, paramtype))
         else:
-            print "invalid command %s" % command
+            print("invalid command %s" % command)
 
     def read_param_value(self, value, terminator="EOF"):
         """ In case multi line input is required, read all input until terminator. """
         if value == terminator:
-            print "Enter multiline input terminated by EOF:"
+            print("Enter multiline input terminated by EOF:")
             value = "\n".join(iter(raw_input, terminator))
         return value
 
@@ -91,18 +91,18 @@ class DoveAdmCli(cmd.Cmd):
         return completions
 
     def preloop(self):
-        print "=== Doveadm HTTP CLI ==="
-        print " - Array type parameters should be comma separated"
-        print " - EOF can be specified as a special value for multiline input."
-        print " - Command 'debug' can be used to enable debug printing curl command for each command."
-        print " - 'commands' can be used to display all available commands."
-        print " - Use tab to complete commands/parameters."
-        print
+        print("=== Doveadm HTTP CLI ===")
+        print(" - Array type parameters should be comma separated")
+        print(" - EOF can be specified as a special value for multiline input.")
+        print(" - Command 'debug' can be used to enable debug printing curl command for each command.")
+        print(" - 'commands' can be used to display all available commands.")
+        print(" - Use tab to complete commands/parameters.")
+        print()
 
     def postloop(self):
         """ Exit a bit more nicely. """
-        print
-        print "Bye!"
+        print()
+        print("Bye!")
 
     def emptyline(self):
         """ Override Cmd.emptyline not to repeat previous command on empty lines. """
@@ -115,19 +115,19 @@ class DoveAdmCli(cmd.Cmd):
                 if response[0][1]['type'] == 'exitCode':
                     exit_code = response[0][1]['exitCode']
                     if exit_code in self.doveadm.errors:
-                        print self.doveadm.errors[exit_code] + " (exitCode: " + str(exit_code) + ")"
+                        print(self.doveadm.errors[exit_code] + " (exitCode: " + str(exit_code) + ")")
                         if exit_code == 64:
                             self.print_command_params(command)
                     else:
-                        print "Unknown error " + str(exit_code) + " occurred"
+                        print("Unknown error " + str(exit_code) + " occurred")
                 elif response[0][1]['type'] == 'httpError':
-                    print "HTTP Error code: " + response[0][1]['httpError']
+                    print("HTTP Error code: " + response[0][1]['httpError'])
                 elif response[0][1]['type'] == 'fatalError':
-                    print "API call failed, invalid parameters?"
+                    print("API call failed, invalid parameters?")
             else:
                 #response[0][1].append({"numResults": len(response[0][1])})
-                print json.dumps(response[0][1], indent=4, sort_keys=True)
-                print "Results: %s" % len(response[0][1])
+                print(json.dumps(response[0][1], indent=4, sort_keys=True))
+                print("Results: %s" % len(response[0][1]))
 
     def default(self, line):
         """ Override Cmd.default to handle Doveadm HTTP API commands. """
@@ -138,7 +138,7 @@ class DoveAdmCli(cmd.Cmd):
                 try:
                     param = param.split("=", 1)
                     if param[0] not in self.doveadm.commands[line[0]]:
-                        print "invalid parameter: %s" % param[0]
+                        print("invalid parameter: %s" % param[0])
                         self.print_command_params(line[0])
                         return
                     else:
@@ -147,18 +147,18 @@ class DoveAdmCli(cmd.Cmd):
                         else:
                             params[param[0]] = self.read_param_value(param[1])
                 except:
-                    print "Syntax error"
+                    print("Syntax error")
 
             if len(params) > 0 or len(line) == 1:
                 if self.debug:
-                    print
-                    print self.doveadm.generate_curl(command=line[0], parameters=params)
-                    print
+                    print()
+                    print(self.doveadm.generate_curl(command=line[0], parameters=params))
+                    print()
                 response = self.doveadm.run_command(command=line[0], parameters=params)
                 self.read_response(command=line[0], response=response)
 
         else:
-            print "command not found: " + line[0]
+            print("command not found: " + line[0])
 
     def do_EOF(self, line):
         """ Handle ^D / EOF to exit. """
