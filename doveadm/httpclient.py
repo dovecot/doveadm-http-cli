@@ -24,8 +24,10 @@ class DoveAdmHTTPClient(object):
         self.reqs = requests.Session()
         if self.password:
             self.reqs.auth = (self.user, self.password)
+            self.password_auth = 'Basic %s' % b64encode(('doveadm:' + self.password).encode('utf-8')).decode('utf-8')
         if self.apikey:
-            self.reqs.headers.update({'Authorization': 'X-Dovecot-API '+ b64encode(self.apikey)})
+            self.apikey_auth = 'X-Dovecot-API %s' % b64encode(self.apikey.encode('utf-8')).decode('utf-8')
+            self.reqs.headers.update({'Authorization': self.apikey_auth})
 
     def get_commands(self):
         """ Retrieve list of available commands and their parameters from API """
@@ -49,9 +51,9 @@ class DoveAdmHTTPClient(object):
         import json
         curl_string = 'curl -H "Authorization: '
         if self.password:
-            curl_string += 'Basic %s"' % b64encode('doveadm:' + self.password)
+            curl_string += self.password_auth + '"'
         elif self.apikey:
-            curl_string += 'X-Dovecot-API %s"' % b64encode(self.apikey)
+            curl_string += self.apikey_auth + '"'
         curl_string += ' -H "Content-Type: application/json"'
         curl_string += " -d '%s'" % json.dumps([[command, parameters, "c01"]])
         curl_string += " %s" % self.apiurl
