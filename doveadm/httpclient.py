@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-""" HTTP Client library for Dovecot Doveadm HTTP API.
-More details of the API itself can be found from:
-http://wiki2.dovecot.org/Design/DoveadmProtocol/HTTP """
+""" HTTP Client library for Dovecot Doveadm HTTP API. """
 
 from base64 import b64encode
 import requests
