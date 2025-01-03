@@ -1,8 +1,27 @@
-### Python CLI client for Doveadm HTTP API
-doveadm-http-cli is an experimental PoC client for Dovecot doveadm HTTP API written in python. On startup it will connect to the API and fetch all available commands and their accepted parameters. Tab completion is available.
+# Python CLI client for Doveadm HTTP API
 
-#### Usage
-First enable [doveadm HTTP api](https://wiki.dovecot.org/Design/DoveadmProtocol/HTTP)
+doveadm-http-cli is a PoC client for Dovecot doveadm HTTP API written in
+python.
+
+On startup it will connect to the API and fetch all available commands and
+their accepted parameters.
+
+Tab completion is available.
+
+## Usage
+
+First enable
+[Doveadm HTTP API](https://doc.dovecot.org/main/core/admin/doveadm.html#http-api).
+
+Next, install the necessary Python requirements (`requirements.txt`). It is
+recommended to use [venv](https://docs.python.org/3/library/venv.html) for this
+purpose.
+
+```
+python3 -m venv venv
+. venv/bin/activate
+pip install -r requirements.txt
+```
 
 Then run the client:
 ```
@@ -13,12 +32,14 @@ or
 ./doveadm_cli.py --password doveadm_password --apiurl http://host:port/doveadm/v1
 ```
 
-Use tab to expand commands/parameters.
+Use \<TAB\> to expand commands/parameters.
 
 ### Advanced
-Use command `debug` to enable printing curl commands for API calls
+
+Use command `debug` to enable printing curl commands for API calls.
 
 ### Example
+
 ```
 $ ./doveadm_cli.py --apikey someapikey --apiurl http://127.0.0.1:8080/doveadm/v1
 === Doveadm HTTP CLI ===
@@ -42,7 +63,3 @@ curl -H "Authorization: X-Dovecot-API anV1c3RvNjY2" -H "Content-Type: applicatio
 ]
 Results: 1
 ```
-
-### TODO
- - Create pypi package.
-
