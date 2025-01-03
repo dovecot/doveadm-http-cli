@@ -9,7 +9,7 @@ def run_cli():
     parser = optparse.OptionParser()
     parser.add_option('-u', '--user', dest='user', help='Doveadm API username', type=str, default='doveadm')
     parser.add_option('-p', '--password', dest='password', help='Doveadm API password', type=str)
-    parser.add_option('-k', '--apikey', dest='apikey', help='Dovead API Key', type=str)
+    parser.add_option('-k', '--apikey', dest='apikey', help='Doveadm API Key', type=str)
     parser.add_option('-a', '--apiurl', dest='apiurl', help='Doveadm API URL', type=str)
 
     (options, args) = parser.parse_args()
